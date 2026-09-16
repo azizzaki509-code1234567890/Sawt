@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -175,7 +174,11 @@ margin-top:15px;
 display:none;
 }
 
-/* نتيجة التحليل */
+#download{
+display:none;
+margin-top:12px;
+text-decoration:none;
+}
 
 #results{
 display:none;
@@ -201,7 +204,7 @@ text-align:center;
 }
 
 .resultBox .number{
-font-size:25px;
+font-size:23px;
 font-weight:bold;
 margin-bottom:6px;
 }
@@ -254,12 +257,6 @@ margin-top:12px;
 cursor:pointer;
 }
 
-#download{
-display:none;
-margin-top:12px;
-text-decoration:none;
-}
-
 footer{
 text-align:center;
 padding:30px;
@@ -267,12 +264,10 @@ color:#7a8494;
 }
 
 </style>
-
 </head>
 
 
 <body>
-
 
 <header>
 
@@ -285,7 +280,6 @@ color:#7a8494;
 </div>
 
 </header>
-
 
 
 <div class="container">
@@ -309,7 +303,6 @@ color:#7a8494;
 </section>
 
 
-
 <section class="challenges" id="challenges">
 
 
@@ -331,7 +324,6 @@ color:#7a8494;
 </div>
 
 
-
 <div class="card">
 
 <h3>💡 عرض فكرة</h3>
@@ -348,7 +340,6 @@ color:#7a8494;
 </button>
 
 </div>
-
 
 
 <div class="card">
@@ -369,7 +360,6 @@ color:#7a8494;
 </div>
 
 
-
 <div class="card">
 
 <h3>🗣️ المناظرة</h3>
@@ -387,13 +377,10 @@ color:#7a8494;
 
 </div>
 
-
 </section>
 
 
-
 <section class="record" id="record">
-
 
 <h2 id="challengeTitle">
 🎤 التحدي
@@ -404,7 +391,6 @@ color:#7a8494;
 </p>
 
 
-
 <video
 id="camera"
 autoplay
@@ -413,11 +399,9 @@ playsinline>
 </video>
 
 
-
 <div id="recordingStatus">
 🔴 جاري التسجيل...
 </div>
-
 
 
 <button
@@ -430,7 +414,6 @@ onclick="startRecording()">
 </button>
 
 
-
 <button
 class="recordButton stopButton"
 id="stopRecordingButton"
@@ -441,13 +424,11 @@ onclick="stopRecording()">
 </button>
 
 
-
 <video
 id="preview"
 controls
 playsinline>
 </video>
-
 
 
 <a
@@ -460,9 +441,6 @@ download="SAWT-video.webm">
 </a>
 
 
-
-<!-- نتائج التحليل -->
-
 <section id="results">
 
 <h2 class="resultsTitle">
@@ -471,7 +449,6 @@ download="SAWT-video.webm">
 
 
 <div class="resultGrid">
-
 
 <div class="resultBox">
 
@@ -484,7 +461,6 @@ download="SAWT-video.webm">
 </div>
 
 </div>
-
 
 
 <div class="resultBox">
@@ -500,7 +476,6 @@ download="SAWT-video.webm">
 </div>
 
 
-
 <div class="resultBox">
 
 <div class="number" id="pauseResult">
@@ -512,7 +487,6 @@ download="SAWT-video.webm">
 </div>
 
 </div>
-
 
 
 <div class="resultBox">
@@ -527,9 +501,7 @@ download="SAWT-video.webm">
 
 </div>
 
-
 </div>
-
 
 
 <div class="score">
@@ -549,7 +521,6 @@ download="SAWT-video.webm">
 </div>
 
 
-
 <div class="advice">
 
 <strong>
@@ -565,14 +536,12 @@ download="SAWT-video.webm">
 </div>
 
 
-
 <p class="analysisNote">
 
-هذا تحليل أولي داخل المتصفح يساعدك على تطوير أدائك،
-ويمكن تطويره لاحقًا باستخدام الذكاء الاصطناعي.
+هذا تحليل أولي للتدريب ويمكن تطويره لاحقًا
+باستخدام الذكاء الاصطناعي.
 
 </p>
-
 
 
 <button
@@ -583,15 +552,11 @@ onclick="retryChallenge()">
 
 </button>
 
-
 </section>
 
-
 </section>
-
 
 </div>
-
 
 
 <footer>
@@ -601,9 +566,7 @@ onclick="retryChallenge()">
 </footer>
 
 
-
 <script>
-
 
 let mediaRecorder;
 
@@ -613,11 +576,10 @@ let stream;
 
 let startTime;
 
-let timerInterval;
-
 let recordingSeconds=0;
 
 
+/* إظهار التحديات */
 
 function showChallenges(){
 
@@ -630,6 +592,7 @@ behavior:"smooth"
 }
 
 
+/* اختيار التحدي */
 
 function startChallenge(title,text){
 
@@ -652,6 +615,7 @@ behavior:"smooth"
 }
 
 
+/* بدء التسجيل */
 
 async function startRecording(){
 
@@ -660,6 +624,8 @@ try{
 recordedChunks=[];
 
 recordingSeconds=0;
+
+startTime=Date.now();
 
 
 stream=await navigator.mediaDevices.getUserMedia({
@@ -694,8 +660,15 @@ recordedChunks.push(event.data);
 };
 
 
-
 mediaRecorder.onstop=function(){
+
+/* حساب المدة النهائية */
+
+recordingSeconds=Math.max(
+1,
+Math.round((Date.now()-startTime)/1000)
+);
+
 
 const blob=new Blob(
 recordedChunks,
@@ -720,26 +693,14 @@ download.href=videoURL;
 download.style.display="block";
 
 
+/* إظهار النتيجة مباشرة */
+
 analyzeRecording();
 
 };
 
 
-
 mediaRecorder.start();
-
-
-startTime=Date.now();
-
-
-timerInterval=setInterval(function(){
-
-recordingSeconds=Math.floor(
-(Date.now()-startTime)/1000
-);
-
-},1000);
-
 
 
 document.getElementById("recordingStatus").style.display="block";
@@ -760,17 +721,26 @@ alert(
 }
 
 
+/* إيقاف التسجيل */
 
 function stopRecording(){
 
-if(mediaRecorder){
+if(!mediaRecorder){
 
-mediaRecorder.stop();
+return;
 
 }
 
 
-clearInterval(timerInterval);
+/* تثبيت مدة التسجيل قبل الإيقاف */
+
+recordingSeconds=Math.max(
+1,
+Math.round((Date.now()-startTime)/1000)
+);
+
+
+mediaRecorder.stop();
 
 
 if(stream){
@@ -793,25 +763,28 @@ document.getElementById("startRecordingButton").style.display="block";
 }
 
 
+/* تحليل التسجيل */
 
 function analyzeRecording(){
 
 let seconds=recordingSeconds;
 
-
 if(seconds<1){
+
 seconds=1;
+
 }
 
 
-let minutes=seconds/60;
+/* تقديرات أولية */
 
-
-/* تقدير سرعة الكلام */
-
-let estimatedWords=Math.round(
-seconds*2.1
+let estimatedWords=Math.max(
+1,
+Math.round(seconds*2)
 );
+
+
+let minutes=seconds/60;
 
 
 let wordsPerMinute=Math.round(
@@ -819,19 +792,15 @@ estimatedWords/minutes
 );
 
 
-/* تقدير التوقفات */
-
 let pauses=Math.max(
 1,
-Math.round(seconds/12)
+Math.round(seconds/15)
 );
 
 
-/* تقدير كلمات الحشو */
-
 let fillers=Math.max(
 0,
-Math.round(seconds/25)
+Math.round(seconds/30)
 );
 
 
@@ -840,20 +809,16 @@ Math.round(seconds/25)
 let score=100;
 
 
-/* السرعة */
-
 if(wordsPerMinute>170){
 
 score-=15;
 
 }
-
 else if(wordsPerMinute>150){
 
 score-=7;
 
 }
-
 else if(wordsPerMinute<90){
 
 score-=8;
@@ -861,15 +826,11 @@ score-=8;
 }
 
 
-/* التوقفات */
-
 score-=Math.min(
 pauses*2,
 10
 );
 
-
-/* الحشو */
 
 score-=Math.min(
 fillers*3,
@@ -883,6 +844,8 @@ score=50;
 
 }
 
+
+/* عرض النتائج */
 
 document.getElementById("durationResult").innerText=
 formatTime(seconds);
@@ -904,49 +867,50 @@ document.getElementById("scoreResult").innerText=
 score;
 
 
+/* النصيحة */
 
-let advice="حافظ على هدوئك وتحدث بوضوح.";
+let advice;
 
 
 if(wordsPerMinute>170){
 
 advice=
-"حاول التحدث ببطء أكثر، واترك فواصل قصيرة بين الأفكار.";
+"🗣️ سرعتك مرتفعة. حاول التحدث ببطء واترك فواصل قصيرة بين الأفكار.";
 
 }
 
 else if(wordsPerMinute<90){
 
 advice=
-"حاول زيادة سرعة الحديث قليلًا مع المحافظة على وضوح الكلمات.";
+"🗣️ حاول رفع سرعة الكلام قليلًا مع الحفاظ على وضوح النطق.";
 
 }
 
 else if(pauses>5){
 
 advice=
-"حاول تنظيم أفكارك قبل الحديث لتقليل التوقفات.";
+"⏸️ لديك توقفات كثيرة. حاول ترتيب أفكارك قبل بداية الحديث.";
 
 }
 
 else if(fillers>3){
 
 advice=
-"حاول تقليل كلمات الحشو مثل: يعني، آه، أمم.";
+"🔤 حاول التقليل من كلمات الحشو مثل: يعني، آه، أمم.";
 
 }
 
 else if(score>=90){
 
 advice=
-"أداء رائع! حافظ على هذا المستوى وطوّر حضورك أكثر.";
+"🌟 أداء رائع! واصل التدريب وحافظ على وضوح صوتك وحضورك.";
 
 }
 
 else{
 
 advice=
-"أداء جيد. واصل التدريب وحاول تحسين سرعة الكلام والتوقفات.";
+"💪 أداء جيد. واصل التدريب وحاول تحسين سرعة الكلام والتوقفات.";
 
 }
 
@@ -955,9 +919,12 @@ document.getElementById("adviceText").innerText=
 advice;
 
 
+/* إظهار قسم النتائج */
+
 document.getElementById("results").style.display="block";
 
 
+/* النزول إلى النتائج */
 
 setTimeout(function(){
 
@@ -970,6 +937,7 @@ behavior:"smooth"
 }
 
 
+/* تحويل الثواني إلى دقائق وثواني */
 
 function formatTime(seconds){
 
@@ -982,6 +950,7 @@ return minutes+"د "+remaining+"ث";
 }
 
 
+/* إعادة التحدي */
 
 function retryChallenge(){
 
@@ -1003,10 +972,7 @@ behavior:"smooth"
 
 }
 
-
 </script>
 
-
 </body>
-
 </html>
