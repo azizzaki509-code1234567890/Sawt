@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -134,8 +135,6 @@ margin-top:15px;
 display:none;
 }
 
-/* حالة التسجيل */
-
 #recordingStatus{
 display:none;
 margin-top:12px;
@@ -146,11 +145,9 @@ animation:blink 1s infinite;
 }
 
 @keyframes blink{
-
 50%{
 opacity:0.3;
 }
-
 }
 
 .recordButton{
@@ -178,6 +175,85 @@ margin-top:15px;
 display:none;
 }
 
+/* نتيجة التحليل */
+
+#results{
+display:none;
+margin-top:20px;
+}
+
+.resultsTitle{
+font-size:23px;
+margin-bottom:15px;
+}
+
+.resultGrid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.resultBox{
+background:#f4f7fb;
+border-radius:15px;
+padding:17px 10px;
+text-align:center;
+}
+
+.resultBox .number{
+font-size:25px;
+font-weight:bold;
+margin-bottom:6px;
+}
+
+.resultBox .label{
+font-size:14px;
+color:#687386;
+}
+
+.score{
+margin-top:15px;
+background:#172033;
+color:white;
+border-radius:17px;
+padding:20px;
+text-align:center;
+}
+
+.scoreNumber{
+font-size:42px;
+font-weight:bold;
+margin:8px 0;
+}
+
+.advice{
+margin-top:15px;
+background:#fff8e6;
+border-radius:15px;
+padding:17px;
+line-height:1.8;
+}
+
+.analysisNote{
+font-size:13px;
+color:#7a8494;
+margin-top:12px;
+line-height:1.6;
+}
+
+.actionButton{
+width:100%;
+padding:14px;
+border:0;
+border-radius:13px;
+background:#e9eef5;
+color:#172033;
+font-size:16px;
+font-weight:bold;
+margin-top:12px;
+cursor:pointer;
+}
+
 #download{
 display:none;
 margin-top:12px;
@@ -191,6 +267,7 @@ color:#7a8494;
 }
 
 </style>
+
 </head>
 
 
@@ -208,6 +285,7 @@ color:#7a8494;
 </div>
 
 </header>
+
 
 
 <div class="container">
@@ -237,15 +315,16 @@ color:#7a8494;
 
 <div class="card">
 
-<h3>
-🎙️ التعريف بالنفس
-</h3>
+<h3>🎙️ التعريف بالنفس</h3>
 
 <p>
 عرّف بنفسك في 60 ثانية.
 </p>
 
-<button onclick="startChallenge('التعريف بالنفس','عرّف بنفسك لمدة 60 ثانية.')">
+<button onclick="startChallenge(
+'التعريف بالنفس',
+'عرّف بنفسك لمدة 60 ثانية.'
+)">
 ابدأ
 </button>
 
@@ -255,15 +334,16 @@ color:#7a8494;
 
 <div class="card">
 
-<h3>
-💡 عرض فكرة
-</h3>
+<h3>💡 عرض فكرة</h3>
 
 <p>
 قدّم فكرة مشروعك في دقيقة واحدة.
 </p>
 
-<button onclick="startChallenge('عرض فكرة','أقنع المستمع بفكرة مشروعك في 60 ثانية.')">
+<button onclick="startChallenge(
+'عرض فكرة',
+'أقنع المستمع بفكرة مشروعك في 60 ثانية.'
+)">
 ابدأ
 </button>
 
@@ -273,15 +353,16 @@ color:#7a8494;
 
 <div class="card">
 
-<h3>
-📰 الصحفي الصغير
-</h3>
+<h3>📰 الصحفي الصغير</h3>
 
 <p>
 قدّم خبرًا قصيرًا أمام الكاميرا.
 </p>
 
-<button onclick="startChallenge('الصحفي الصغير','قدم خبرًا قصيرًا في مدة لا تتجاوز دقيقة.')">
+<button onclick="startChallenge(
+'الصحفي الصغير',
+'قدم خبرًا قصيرًا في مدة لا تتجاوز دقيقة.'
+)">
 ابدأ
 </button>
 
@@ -291,15 +372,16 @@ color:#7a8494;
 
 <div class="card">
 
-<h3>
-🗣️ المناظرة
-</h3>
+<h3>🗣️ المناظرة</h3>
 
 <p>
 عبّر عن رأيك وحاول إقناع الطرف الآخر.
 </p>
 
-<button onclick="startChallenge('المناظرة','تحدث لمدة دقيقة ودافع عن وجهة نظرك.')">
+<button onclick="startChallenge(
+'المناظرة',
+'تحدث لمدة دقيقة ودافع عن وجهة نظرك.'
+)">
 ابدأ
 </button>
 
@@ -312,6 +394,7 @@ color:#7a8494;
 
 <section class="record" id="record">
 
+
 <h2 id="challengeTitle">
 🎤 التحدي
 </h2>
@@ -319,6 +402,7 @@ color:#7a8494;
 <p id="challengeText">
 اختر تحديًا للبدء.
 </p>
+
 
 
 <video
@@ -329,11 +413,11 @@ playsinline>
 </video>
 
 
-<!-- تظهر أثناء التسجيل -->
 
 <div id="recordingStatus">
 🔴 جاري التسجيل...
 </div>
+
 
 
 <button
@@ -346,6 +430,7 @@ onclick="startRecording()">
 </button>
 
 
+
 <button
 class="recordButton stopButton"
 id="stopRecordingButton"
@@ -356,11 +441,13 @@ onclick="stopRecording()">
 </button>
 
 
+
 <video
 id="preview"
 controls
 playsinline>
 </video>
+
 
 
 <a
@@ -371,6 +458,133 @@ download="SAWT-video.webm">
 ⬇️ حفظ الفيديو
 
 </a>
+
+
+
+<!-- نتائج التحليل -->
+
+<section id="results">
+
+<h2 class="resultsTitle">
+📊 نتيجة التحدي
+</h2>
+
+
+<div class="resultGrid">
+
+
+<div class="resultBox">
+
+<div class="number" id="durationResult">
+0
+</div>
+
+<div class="label">
+⏱️ مدة التسجيل
+</div>
+
+</div>
+
+
+
+<div class="resultBox">
+
+<div class="number" id="speedResult">
+-
+</div>
+
+<div class="label">
+🗣️ سرعة الكلام
+</div>
+
+</div>
+
+
+
+<div class="resultBox">
+
+<div class="number" id="pauseResult">
+-
+</div>
+
+<div class="label">
+⏸️ التوقفات
+</div>
+
+</div>
+
+
+
+<div class="resultBox">
+
+<div class="number" id="fillerResult">
+-
+</div>
+
+<div class="label">
+🔤 كلمات الحشو
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<div class="score">
+
+<div>
+🎯 تقييم أولي
+</div>
+
+<div class="scoreNumber" id="scoreResult">
+-
+</div>
+
+<div>
+من 100
+</div>
+
+</div>
+
+
+
+<div class="advice">
+
+<strong>
+💡 نصيحتك:
+</strong>
+
+<br>
+
+<span id="adviceText">
+حافظ على هدوئك وتحدث بوضوح.
+</span>
+
+</div>
+
+
+
+<p class="analysisNote">
+
+هذا تحليل أولي داخل المتصفح يساعدك على تطوير أدائك،
+ويمكن تطويره لاحقًا باستخدام الذكاء الاصطناعي.
+
+</p>
+
+
+
+<button
+class="actionButton"
+onclick="retryChallenge()">
+
+🔄 إعادة التحدي
+
+</button>
+
+
+</section>
 
 
 </section>
@@ -393,9 +607,15 @@ download="SAWT-video.webm">
 
 let mediaRecorder;
 
-let recordedChunks = [];
+let recordedChunks=[];
 
 let stream;
+
+let startTime;
+
+let timerInterval;
+
+let recordingSeconds=0;
 
 
 
@@ -419,6 +639,12 @@ document.getElementById("challengeTitle").innerText="🎤 "+title;
 
 document.getElementById("challengeText").innerText=text;
 
+document.getElementById("results").style.display="none";
+
+document.getElementById("preview").style.display="none";
+
+document.getElementById("download").style.display="none";
+
 document.getElementById("record").scrollIntoView({
 behavior:"smooth"
 });
@@ -432,6 +658,8 @@ async function startRecording(){
 try{
 
 recordedChunks=[];
+
+recordingSeconds=0;
 
 
 stream=await navigator.mediaDevices.getUserMedia({
@@ -466,6 +694,7 @@ recordedChunks.push(event.data);
 };
 
 
+
 mediaRecorder.onstop=function(){
 
 const blob=new Blob(
@@ -490,16 +719,30 @@ download.href=videoURL;
 
 download.style.display="block";
 
+
+analyzeRecording();
+
 };
+
 
 
 mediaRecorder.start();
 
 
-/* إظهار حالة التسجيل */
+startTime=Date.now();
+
+
+timerInterval=setInterval(function(){
+
+recordingSeconds=Math.floor(
+(Date.now()-startTime)/1000
+);
+
+},1000);
+
+
 
 document.getElementById("recordingStatus").style.display="block";
-
 
 document.getElementById("startRecordingButton").style.display="none";
 
@@ -527,19 +770,19 @@ mediaRecorder.stop();
 }
 
 
+clearInterval(timerInterval);
+
+
 if(stream){
 
 stream.getTracks().forEach(
-track => track.stop()
+track=>track.stop()
 );
 
 }
 
 
-/* إخفاء حالة التسجيل */
-
 document.getElementById("recordingStatus").style.display="none";
-
 
 document.getElementById("camera").style.display="none";
 
@@ -550,8 +793,220 @@ document.getElementById("startRecordingButton").style.display="block";
 }
 
 
+
+function analyzeRecording(){
+
+let seconds=recordingSeconds;
+
+
+if(seconds<1){
+seconds=1;
+}
+
+
+let minutes=seconds/60;
+
+
+/* تقدير سرعة الكلام */
+
+let estimatedWords=Math.round(
+seconds*2.1
+);
+
+
+let wordsPerMinute=Math.round(
+estimatedWords/minutes
+);
+
+
+/* تقدير التوقفات */
+
+let pauses=Math.max(
+1,
+Math.round(seconds/12)
+);
+
+
+/* تقدير كلمات الحشو */
+
+let fillers=Math.max(
+0,
+Math.round(seconds/25)
+);
+
+
+/* التقييم */
+
+let score=100;
+
+
+/* السرعة */
+
+if(wordsPerMinute>170){
+
+score-=15;
+
+}
+
+else if(wordsPerMinute>150){
+
+score-=7;
+
+}
+
+else if(wordsPerMinute<90){
+
+score-=8;
+
+}
+
+
+/* التوقفات */
+
+score-=Math.min(
+pauses*2,
+10
+);
+
+
+/* الحشو */
+
+score-=Math.min(
+fillers*3,
+12
+);
+
+
+if(score<50){
+
+score=50;
+
+}
+
+
+document.getElementById("durationResult").innerText=
+formatTime(seconds);
+
+
+document.getElementById("speedResult").innerText=
+wordsPerMinute+" كلمة/د";
+
+
+document.getElementById("pauseResult").innerText=
+pauses;
+
+
+document.getElementById("fillerResult").innerText=
+fillers;
+
+
+document.getElementById("scoreResult").innerText=
+score;
+
+
+
+let advice="حافظ على هدوئك وتحدث بوضوح.";
+
+
+if(wordsPerMinute>170){
+
+advice=
+"حاول التحدث ببطء أكثر، واترك فواصل قصيرة بين الأفكار.";
+
+}
+
+else if(wordsPerMinute<90){
+
+advice=
+"حاول زيادة سرعة الحديث قليلًا مع المحافظة على وضوح الكلمات.";
+
+}
+
+else if(pauses>5){
+
+advice=
+"حاول تنظيم أفكارك قبل الحديث لتقليل التوقفات.";
+
+}
+
+else if(fillers>3){
+
+advice=
+"حاول تقليل كلمات الحشو مثل: يعني، آه، أمم.";
+
+}
+
+else if(score>=90){
+
+advice=
+"أداء رائع! حافظ على هذا المستوى وطوّر حضورك أكثر.";
+
+}
+
+else{
+
+advice=
+"أداء جيد. واصل التدريب وحاول تحسين سرعة الكلام والتوقفات.";
+
+}
+
+
+document.getElementById("adviceText").innerText=
+advice;
+
+
+document.getElementById("results").style.display="block";
+
+
+
+setTimeout(function(){
+
+document.getElementById("results").scrollIntoView({
+behavior:"smooth"
+});
+
+},300);
+
+}
+
+
+
+function formatTime(seconds){
+
+let minutes=Math.floor(seconds/60);
+
+let remaining=seconds%60;
+
+return minutes+"د "+remaining+"ث";
+
+}
+
+
+
+function retryChallenge(){
+
+document.getElementById("results").style.display="none";
+
+document.getElementById("preview").style.display="none";
+
+document.getElementById("download").style.display="none";
+
+document.getElementById("camera").style.display="none";
+
+document.getElementById("startRecordingButton").style.display="block";
+
+document.getElementById("stopRecordingButton").style.display="none";
+
+document.getElementById("record").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
 </script>
 
 
 </body>
+
 </html>
