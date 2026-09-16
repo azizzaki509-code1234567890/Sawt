@@ -134,6 +134,25 @@ margin-top:15px;
 display:none;
 }
 
+/* حالة التسجيل */
+
+#recordingStatus{
+display:none;
+margin-top:12px;
+font-size:18px;
+font-weight:bold;
+color:#d62828;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+
+50%{
+opacity:0.3;
+}
+
+}
+
 .recordButton{
 width:100%;
 padding:15px;
@@ -174,7 +193,9 @@ color:#7a8494;
 </style>
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -190,6 +211,7 @@ color:#7a8494;
 
 
 <div class="container">
+
 
 <section class="hero">
 
@@ -207,6 +229,7 @@ color:#7a8494;
 </button>
 
 </section>
+
 
 
 <section class="challenges" id="challenges">
@@ -229,6 +252,7 @@ color:#7a8494;
 </div>
 
 
+
 <div class="card">
 
 <h3>
@@ -244,6 +268,7 @@ color:#7a8494;
 </button>
 
 </div>
+
 
 
 <div class="card">
@@ -263,6 +288,7 @@ color:#7a8494;
 </div>
 
 
+
 <div class="card">
 
 <h3>
@@ -279,7 +305,9 @@ color:#7a8494;
 
 </div>
 
+
 </section>
+
 
 
 <section class="record" id="record">
@@ -293,7 +321,19 @@ color:#7a8494;
 </p>
 
 
-<video id="camera" autoplay muted playsinline></video>
+<video
+id="camera"
+autoplay
+muted
+playsinline>
+</video>
+
+
+<!-- تظهر أثناء التسجيل -->
+
+<div id="recordingStatus">
+🔴 جاري التسجيل...
+</div>
 
 
 <button
@@ -332,9 +372,12 @@ download="SAWT-video.webm">
 
 </a>
 
+
 </section>
 
+
 </div>
+
 
 
 <footer>
@@ -344,13 +387,16 @@ download="SAWT-video.webm">
 </footer>
 
 
+
 <script>
+
 
 let mediaRecorder;
 
 let recordedChunks = [];
 
 let stream;
+
 
 
 function showChallenges(){
@@ -362,6 +408,7 @@ behavior:"smooth"
 });
 
 }
+
 
 
 function startChallenge(title,text){
@@ -377,6 +424,7 @@ behavior:"smooth"
 });
 
 }
+
 
 
 async function startRecording(){
@@ -442,11 +490,15 @@ download.href=videoURL;
 
 download.style.display="block";
 
-
 };
 
 
 mediaRecorder.start();
+
+
+/* إظهار حالة التسجيل */
+
+document.getElementById("recordingStatus").style.display="block";
 
 
 document.getElementById("startRecordingButton").style.display="none";
@@ -463,6 +515,7 @@ alert(
 }
 
 }
+
 
 
 function stopRecording(){
@@ -483,6 +536,11 @@ track => track.stop()
 }
 
 
+/* إخفاء حالة التسجيل */
+
+document.getElementById("recordingStatus").style.display="none";
+
+
 document.getElementById("camera").style.display="none";
 
 document.getElementById("stopRecordingButton").style.display="none";
@@ -491,7 +549,9 @@ document.getElementById("startRecordingButton").style.display="block";
 
 }
 
+
 </script>
+
 
 </body>
 </html>
